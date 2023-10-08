@@ -10,6 +10,8 @@ services:
       - backend
     volumes:
       - ./client:/app/client
+    networks:
+      - yolo-network
 
   backend:
     build:
@@ -19,13 +21,22 @@ services:
     depends_on:
       - mongo
     volumes:
-      - ./backend:/app/backend 
-      
+      - ./backend:/app/backend
+    networks:
+      - yolo-network
+
   mongo:
     image: mongo
     ports:
       - "27018:27017"
     volumes:
       - ./mongodb-data:/data/db
+    networks:
+      - yolo-network
+
+networks:
+  yolo-network:
+    driver: bridge
+
   
 
