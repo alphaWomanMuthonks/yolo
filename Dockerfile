@@ -1,12 +1,15 @@
 # Node.js image
+# Use the node:14 base image
 FROM node:14
 
-# working directory
-WORKDIR /app
-
-# Install MongoDB and start the MongoDB service
+# Install MongoDB
 RUN apt-get update && apt-get install -y mongodb
+
+# Start the MongoDB service
 RUN service mongod start
+
+# Create a working directory
+WORKDIR /app
 
 # Copy the package.json and package-lock.json files to the container
 COPY client/package*.json ./client/
@@ -24,6 +27,10 @@ COPY backend/ ./backend/
 
 # Expose port 3000 for the Node.js app
 EXPOSE 3000
+
+# Define the command to start your Node.js application
+CMD ["npm", "start"]
+
 
 #Start the Node.js app
 CMD [ "npm", "start" ]
