@@ -2,6 +2,7 @@ version: '3'
 
 services:
   client:
+    image: yolo-client:v1.0.0
     build:
       context: ./client
     ports:
@@ -14,6 +15,7 @@ services:
       - yolo-network
 
   backend:
+    image: yolo-backend:v1.0.0
     build:
       context: ./backend
     ports:
@@ -26,7 +28,7 @@ services:
       - yolo-network
 
   mongo:
-    image: mvertes/alpine-mongo
+    image: mongo:jammy
     ports:
       - "27018:27017"
     volumes:
@@ -36,6 +38,7 @@ services:
 
 networks:
   yolo-network:
+    name: yolo-network
     driver: bridge
 
   
