@@ -38,7 +38,6 @@ services:
 
 networks:
   yolo-network:
-    name: yolo-network
     driver: bridge
 
   
