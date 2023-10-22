@@ -1,0 +1,17 @@
+---
+- name: Install MongoDB
+  apt:
+    name: mongodb
+    state: present
+
+- name: Run MongoDB container
+  docker_container:
+    name: mongo
+    image: mongo:jammy
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb-data:/data/db
+    networks:
+      - name: yolo-network
+    state: started
