@@ -26,20 +26,19 @@
     name: 
       - nodejs
       - npm
-    state: present  # Adjust this based on your requirements
+    state: present  
   become: true
-  when: ansible_distribution == "Ubuntu"  # Adjust for other distributions
-
-- name: Install Dependencies for client
-  shell: npm install
-  args:
-    chdir: "{{playbook_dir}}/client"
-  become: true
+  when: ansible_distribution == "Ubuntu"  
 
 - name: Start Client
-  shell: npm start
+  service: 
+    name: npm start
   args:
     chdir: "{{playbook_dir}}/client"
   become: true
-
+# - name: Start client
+#   apt:
+#     name: npm
+#     state: 
+#     enabled: yes
 

@@ -2,15 +2,20 @@
 - name: Clone the repository from GitHub
   git:
     repo: https://github.com/alphaWomanMuthonks/yolo.git
-    dest: "{{ backend_dir }}"
+    dest: "{{ backend_dir }}/backend"
   become: true
 
-- name: Install Dependencies for backend
-  shell: npm install
-  args:
-    chdir: "{{playbook_dir}}/backend"
+- name: Install Node.js and npm
+  apt:
+    name: 
+      - nodejs
+      - npm
+    state: present  
+  become: true
+  when: ansible_distribution == "Ubuntu" 
 
 - name: Start backend App
   shell: npm start
   args:
     chdir: "{{playbook_dir}}/backend"
+  become: true
