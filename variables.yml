@@ -1,0 +1,18 @@
+client_image_name: yolo-client:v1.0.0
+client_build_context: ./client
+client_ports:
+  - "3000:3000"
+client_volumes: ./client:/app/client
+
+backend_image_name: yolo-backend:v1.0.0
+backend_build_context: ./backend
+backend_ports:
+  - "5000:5000"
+backend_volumes: ./backend:/app/backend
+
+mongo_image_name: mongo:jammy
+mongo_ports:
+  - "27017:27017"
+mongo_volumes: ./mongodb-data:/data/db
+
+network_name: yolo-network
