@@ -1,24 +1,16 @@
 ---
-- name: Build and run the backend container
-  block:
-    - name: Build the backend image
-      docker_image:
-        name: "yolo-backend:v1.0.0"
-        build:
-          context: "./backend"
-        state: present
-      tags: backend
+- name: Clone the repository from GitHub
+  git:
+    repo: https://github.com/alphaWomanMuthonks/yolo.git
+    dest: "{{ backend_dir }}"
+  become: true
 
-    - name: Run the backend container
-      docker_container:
-        name: backend
-        image: "yolo-backend"
-        ports: "5000:5000"
-        volumes: "./backend:/app/backend"
-        depends_on:
-          - mongo
-        networks:
-          - name: "yolo-network"
-        state: started
-      tags: backend
-  tags: backend
+- name: Install Dependencies for backend
+  shell: npm install
+  args:
+    chdir: "{{playbook_dir}}/backend"
+
+- name: Start {{ app_name }} Client App
+  shell: npm start
+  args:
+    chdir: "{{ backend_dir }}"

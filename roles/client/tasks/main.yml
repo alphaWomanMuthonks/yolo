@@ -1,54 +1,18 @@
-# ---
-# - name: Build and run the client container
-#   block:
-#     - name: Build the client image
-#       docker_image:
-#         name: "joymalanga/yolo-client:v1.0.0"
-#         source: build 
-#         build:
-#           path: '{{playbook_dir}}/client'
-#           # dockerfile: Dockerfile
-#         state: present
-#       tags: client
-
-#     - name: Run the client container
-#       docker_container:
-#         name: client
-#         image: "joymalanga/yolo-client:v1.0.0"
-#         ports: "3000:3000"
-#         volumes: "./client:/app/client"
-#         depends_on:
-#           - backend
-#         networks:
-#           - name: "yolo-network"
-#         state: started
-#       tags: client
-#   tags: client
 ---
-- name: Build and run the client container
-  block:
-    - name: Build the client image
-      docker_image:
-        name: "joymalanga/yolo-client:v1.0.0"
-        source: build
-        build:
-          path: "{{playbook_dir}}/client"
-          dockerfile: Dockerfile
-        state: present
-      tags: client
+- name: Clone the repository from GitHub
+  git:
+    repo: https://github.com/alphaWomanMuthonks/yolo.git
+    dest: "{{playbook_dir}}/client"
+  become: true
 
-    - name: Run the client container
-      docker_container:
-        name: client
-        image: "joymalanga/yolo-client:v1.0.0"
-        ports: "3000:3000"
-        volumes: "./client:/app/client"
-        depends_on:
-          - backend
-        networks:
-          - name: "yolo-network"
-        state: started
-      tags: client
-  tags: client
+- name: Install Dependencies for backend
+  shell: npm install
+  args:
+    chdir: "{{playbook_dir}}/client"
+
+- name: Start {{ app_name }} Client App
+  shell: npm start
+  args:
+    chdir: "{{playbook_dir}}/client"
 
 

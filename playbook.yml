@@ -1,6 +1,6 @@
 ---
 - name: Deploy Docker Containers
-  hosts: vagrant
+  hosts: 127.0.0.1
   become: true
 
   tasks:
@@ -10,3 +10,4 @@
     - client
     - backend
     - mongo
+    - common
