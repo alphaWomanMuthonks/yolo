@@ -4,8 +4,11 @@
     - name: Build the client image
       docker_image:
         name: "yolo-client:v1.0.0"
+        source: build
         build:
-          context: "./client"
+          # context: ./client
+          # context: ../../../client
+          path: ../../../client
         state: present
       tags: client
 

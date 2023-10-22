@@ -1,8 +1,8 @@
 ---
 - name: Deploy Docker Containers
-  hosts: all
+  hosts: localhost
   become: true
-  
+
   tasks:
     - name: Include variables
       include_vars: variables.yml
