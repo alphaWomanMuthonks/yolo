@@ -1,21 +1,46 @@
+# ---
+# - name: Build and run the client container
+#   block:
+#     - name: Build the client image
+#       docker_image:
+#         name: "joymalanga/yolo-client:v1.0.0"
+#         source: build 
+#         build:
+#           path: '{{playbook_dir}}/client'
+#           # dockerfile: Dockerfile
+#         state: present
+#       tags: client
+
+#     - name: Run the client container
+#       docker_container:
+#         name: client
+#         image: "joymalanga/yolo-client:v1.0.0"
+#         ports: "3000:3000"
+#         volumes: "./client:/app/client"
+#         depends_on:
+#           - backend
+#         networks:
+#           - name: "yolo-network"
+#         state: started
+#       tags: client
+#   tags: client
 ---
 - name: Build and run the client container
   block:
     - name: Build the client image
       docker_image:
-        name: "yolo-client:v1.0.0"
+        name: "joymalanga/yolo-client:v1.0.0"
         source: build
         build:
-          # context: ./client
-          # context: ../../../client
-          path: ../../../client
+          path: "{{playbook_dir}}/client"
+          dockerfile: Dockerfile
         state: present
       tags: client
 
     - name: Run the client container
       docker_container:
         name: client
-        image: "yolo-client"
+        image: "joymalanga/yolo-client:v1.0.0"
         ports: "3000:3000"
         volumes: "./client:/app/client"
         depends_on:
@@ -25,3 +50,5 @@
         state: started
       tags: client
   tags: client
+
+
