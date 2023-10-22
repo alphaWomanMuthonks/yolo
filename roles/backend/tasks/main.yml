@@ -10,7 +10,7 @@
   args:
     chdir: "{{playbook_dir}}/backend"
 
-- name: Start {{ app_name }} Client App
+- name: Start backend App
   shell: npm start
   args:
-    chdir: "{{ backend_dir }}"
+    chdir: "{{playbook_dir}}/backend"

@@ -1,3 +1,19 @@
+# ---
+# - name: Clone the repository from GitHub
+#   git:
+#     repo: https://github.com/alphaWomanMuthonks/yolo.git
+#     dest: "{{playbook_dir}}/client"
+#   become: true
+
+# - name: Install Dependencies for client
+#   shell: npm install
+#   args:
+#     chdir: "{{playbook_dir}}/client"
+
+# - name: Start Client 
+#   shell: npm start
+#   args:
+#     chdir: "{{playbook_dir}}/client"
 ---
 - name: Clone the repository from GitHub
   git:
@@ -5,14 +21,25 @@
     dest: "{{playbook_dir}}/client"
   become: true
 
-- name: Install Dependencies for backend
+- name: Install Node.js and npm
+  apt:
+    name: 
+      - nodejs
+      - npm
+    state: present  # Adjust this based on your requirements
+  become: true
+  when: ansible_distribution == "Ubuntu"  # Adjust for other distributions
+
+- name: Install Dependencies for client
   shell: npm install
   args:
     chdir: "{{playbook_dir}}/client"
+  become: true
 
-- name: Start {{ app_name }} Client App
+- name: Start Client
   shell: npm start
   args:
     chdir: "{{playbook_dir}}/client"
+  become: true
 
 
