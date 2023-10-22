@@ -1,6 +1,8 @@
 ---
 - name: Deploy Docker Containers
-  hosts: localhost
+  hosts: all
+  become: true
+  
   tasks:
     - name: Include variables
       include_vars: variables.yml
@@ -15,7 +17,7 @@
         name: backend
       tags: backend
 
-    - name: Set up mongo container
+    - name: Set up mongoDB
       include_role:
         name: mongo
       tags: mongo
