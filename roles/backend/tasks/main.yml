@@ -19,15 +19,13 @@
     name: npm start
   become: true
 
-- name: Build backend docker image
+- name: Pull backend Docker image
   docker_image:
     name: joymalanga/yolo-backend:v1.0.0
-    source: build
-    build:
-      path: /home/joy/Documents/Devops04/yolo/backend/Dockerfile
+    source: pull
   register: backend_image
   tags:
-    - backend
+    - client
 
 - name: build backend container
   docker_container:

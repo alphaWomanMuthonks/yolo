@@ -19,17 +19,23 @@
   service: 
     name: npm start
   become: true
+  
+- name: Ensure Docker library is available
+  pip:
+    name: docker
+    state: present
+    become: yes  # This may be necessary to install packages
+    ansible_python_interpreter: /usr/bin/python3
 
-- name: Build client docker image
+- name: Pull client Docker image
   docker_image:
     name: joymalanga/yolo-client:v1.0.0
-    source: build
-    build:
-      # path: '{{playbook_dir}}/client'
-      path: /home/joy/Documents/Devops04/yolo/client/Dockerfile
+    source: pull
   register: client_image
   tags:
     - client
+
+
 
 - name: build client docker container
   docker_container:
