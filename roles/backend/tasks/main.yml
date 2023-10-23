@@ -2,7 +2,7 @@
 - name: Clone the repository from GitHub
   git:
     repo: https://github.com/alphaWomanMuthonks/yolo.git
-    dest: "{{ backend_dir }}/backend"
+    dest: "{{ playbook_dir}}/backend"
   become: true
 
 - name: Install Node.js and npm
@@ -14,8 +14,7 @@
   become: true
   when: ansible_distribution == "Ubuntu" 
 
-- name: Start backend App
-  shell: npm start
-  args:
-    chdir: "{{playbook_dir}}/backend"
+- name: Start backend
+  service: 
+    name: npm start
   become: true

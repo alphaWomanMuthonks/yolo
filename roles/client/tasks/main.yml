@@ -33,12 +33,5 @@
 - name: Start Client
   service: 
     name: npm start
-  args:
-    chdir: "{{playbook_dir}}/client"
   become: true
-# - name: Start client
-#   apt:
-#     name: npm
-#     state: 
-#     enabled: yes
 

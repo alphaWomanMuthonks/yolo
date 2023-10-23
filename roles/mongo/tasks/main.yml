@@ -1,17 +1,63 @@
----
-- name: Install MongoDB
-  apt:
-    name: mongodb
-    state: present
+# ---
+# - name: Install MongoDB
+#   apt:
+#     name: mongodb:jammy
+#     state: present
+#   become: true
 
-- name: Run MongoDB container
-  docker_container:
-    name: mongo
-    image: mongo:jammy
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./mongodb-data:/data/db
-    networks:
-      - name: yolo-network
-    state: started
+
+# - name: Run MongoDB container
+#   docker_container:
+#     name: mongo
+#     image: mongo:jammy
+#     ports:
+#       - "27017:27017"
+#     volumes:
+#       - ./mongodb-data:/data/db
+#     networks:
+#       - name: yolo-network
+#     state: started
+# ---
+#     - name: Update package cache
+#       apt:
+#         update_cache: yes
+#       when: ansible_os_family == 'Debian'
+
+#     - name: Install MongoDB
+#       apt:
+#         name: mongodb
+#         state: present
+#       when: ansible_os_family == 'Debian'
+
+#     - name: Start MongoDB service
+#       service:
+#         name: mongodb
+#         state: started
+#         enabled: yes
+---
+    # - name: Install MongoDB
+    #   # hosts: localhost
+    #   # become: yes
+    #   tasks:
+      - name: Import MongoDB GPG key
+        apt_key:
+          url: https://www.mongodb.org/static/pgp/server-5.0.asc
+
+      - name: Add MongoDB repository
+        apt_repository:
+          repo: deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/5.0 multiverse
+
+      - name: Update package cache
+        apt:
+          update_cache: yes
+
+      - name: Install MongoDB
+        apt:
+          name: mongodb-org
+          state: present
+
+      - name: Start MongoDB service
+        service:
+          name: mongodb
+          state: started
+          enabled: yes

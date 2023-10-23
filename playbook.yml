@@ -9,5 +9,5 @@
   roles:
     - client
     - backend
-    - mongo
     - common
+    - mongo
