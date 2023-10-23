@@ -7,7 +7,7 @@
     - name: Include variables
       include_vars: variables.yml
   roles:
+    - common
     - client
     - backend
-    - common
     - mongo
