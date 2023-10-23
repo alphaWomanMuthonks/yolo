@@ -24,7 +24,7 @@
     name: joymalanga/yolo-backend:v1.0.0
     source: build
     build:
-      path: '{{playbook_dir}}/backend'
+      path: /home/joy/Documents/Devops04/yolo/backend/Dockerfile
   register: backend_image
   tags:
     - backend

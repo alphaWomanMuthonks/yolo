@@ -1,19 +1,4 @@
-# ---
-# - name: Clone the repository from GitHub
-#   git:
-#     repo: https://github.com/alphaWomanMuthonks/yolo.git
-#     dest: "{{playbook_dir}}/client"
-#   become: true
 
-# - name: Install Dependencies for client
-#   shell: npm install
-#   args:
-#     chdir: "{{playbook_dir}}/client"
-
-# - name: Start Client 
-#   shell: npm start
-#   args:
-#     chdir: "{{playbook_dir}}/client"
 ---
 - name: Clone the repository from GitHub
   git:
@@ -40,10 +25,11 @@
     name: joymalanga/yolo-client:v1.0.0
     source: build
     build:
-      path: '{{playbook_dir}}/client'
+      # path: '{{playbook_dir}}/client'
+      path: /home/joy/Documents/Devops04/yolo/client/Dockerfile
   register: client_image
   tags:
-    - frontend
+    - client
 
 - name: build client docker container
   docker_container:
