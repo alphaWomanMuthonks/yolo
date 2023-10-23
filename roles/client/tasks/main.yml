@@ -35,3 +35,25 @@
     name: npm start
   become: true
 
+- name: Build client docker image
+  docker_image:
+    name: joymalanga/yolo-client:v1.0.0
+    source: build
+    build:
+      path: '{{playbook_dir}}/client'
+  register: client_image
+  tags:
+    - frontend
+
+- name: build client docker container
+  docker_container:
+    name: yolo-client-container
+    image: joymalanga/yolo-client:v1.0.0
+    state: started
+    volumes:
+      - ./client:/app/client/
+    ports:
+      - '3000:3000'
+    networks:
+      - name: yolo_network
+    network_mode: bridge

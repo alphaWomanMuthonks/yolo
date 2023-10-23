@@ -53,7 +53,7 @@
 
       - name: Install MongoDB
         apt:
-          name: mongodb-org
+          name: jammy/mongodb-org/5.0
           state: present
 
       - name: Start MongoDB service

@@ -18,3 +18,29 @@
   service: 
     name: npm start
   become: true
+
+- name: Build backend docker image
+  docker_image:
+    name: joymalanga/yolo-backend:v1.0.0
+    source: build
+    build:
+      path: '{{playbook_dir}}/backend'
+  register: backend_image
+  tags:
+    - backend
+
+- name: build backend container
+  docker_container:
+    name: yolo-backend-container
+    image: joymalanga/yolo-backend:v1.0.0
+    state: started
+    volumes:
+      - ./backend:/app/backend/
+    ports:
+      - '5000:5000'
+    networks:
+      - name: yolo_network
+    env:
+      MONGO_URI: 'mongodb://yolo-database-container:27017/jammy'
+  tags:
+    - backend

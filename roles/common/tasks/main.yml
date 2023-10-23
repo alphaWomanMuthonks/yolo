@@ -12,3 +12,11 @@
   service:
     name: docker
     state: started
+
+- name: Create Custom Bridge Network
+  docker_network:
+    name: yolo_network
+    state: present
+    attachable: true
+  tags:
+    - network
