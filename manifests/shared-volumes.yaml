@@ -10,7 +10,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: standard
   hostPath:
-    path: /path/to/your/frontend/shared/directory
+    path: /home/joy/Documents/Devops04/yolo/hosts
 
 ---
 apiVersion: v1
@@ -25,7 +25,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: standard
   hostPath:
-    path: /path/to/your/backend/shared/directory
+    path: /home/joy/Documents/Devops04/yolo/hosts
 
 ---
 apiVersion: v1
